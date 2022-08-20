@@ -23,12 +23,15 @@ const options = {
       Notiflix.Notify.failure("Please choose a date in the future");
       return;
     };
-    console.log(selectedDates[0]);
-    console.log(refs.datetimePicker.value);
     refs.btnStart.disabled = false;
     refs.btnStart.addEventListener("click", () => {
-      setInterval(() => {
-        convertMs(selectedDates[0] - Date.now());
+      const timerId = setInterval(() => {
+        const time = selectedDates[0] - Date.now();
+        convertMs(time);
+        if (time < 1000)  {
+            refs.btnStart.disabled = true;
+          clearInterval(timerId);
+        }
       }, 1000);
     });
   },  
