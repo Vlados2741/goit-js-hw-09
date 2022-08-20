@@ -25,14 +25,9 @@ function onGeneratePromise(e) {
   const ddelay = parseInt(refs.delay.value);
   const step = parseInt(refs.step.value);
   const ammount = parseInt(refs.amount.value);
-  let delay = 0;
   for (let i = 1; i <= ammount; i++) {
     const position = i;
-    if (i === 1) {
-      delay = ddelay;
-    } else {
-      delay = ddelay + step;
-    };
+    const delay = (position - 1) * step + +ddelay;
     createPromise(position, delay)
       .then(({ position, delay }) => {
         Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
